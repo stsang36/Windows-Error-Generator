@@ -1,4 +1,3 @@
-import window as w
 import settings as s
 import win32api
 
@@ -16,16 +15,3 @@ def on_generate_button_click(title: str, body: str, type_msg: str, icon: str) ->
 
     settings.icon = icon_int
     settings.type = type_int
-
-
-def main() -> None:
-    
-    window = w.Window()
-    
-
-    window.mainloop()
-if __name__ == "__main__":
-    main()
-
-    
-

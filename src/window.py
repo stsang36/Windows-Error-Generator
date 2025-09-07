@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import ctypes
 from typing import Callable
-from app import on_generate_button_click
+from message_box import on_generate_button_click
 
 WINDOW_WIDTH = 870
 WINDOW_HEIGHT = 540
