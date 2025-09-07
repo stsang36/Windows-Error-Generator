@@ -2,6 +2,7 @@ import customtkinter as ctk
 import ctypes
 from typing import Callable
 from message_box import on_generate_button_click
+import threading
 
 WINDOW_WIDTH = 870
 WINDOW_HEIGHT = 540
@@ -174,6 +175,6 @@ def selector_frame_types(w: Window) -> ctk.CTkFrame:
     return frame
 
 def generate_button(w: Window, error_message_run: Callable) -> ctk.CTkButton:
-    btn = ctk.CTkButton(w, text="Generate Error", command=error_message_run)
+    btn = ctk.CTkButton(w, text="Generate Error", command=lambda: threading.Thread(target=error_message_run).start())
     btn.place(x=BUTTON_X, y=BUTTON_Y)
     return btn
