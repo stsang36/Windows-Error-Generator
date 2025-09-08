@@ -3,6 +3,7 @@ from ctypes import windll
 from typing import Callable
 from message_box import on_generate_button_click
 from threading import Thread
+from tkinter import Menu
 
 WINDOW_WIDTH = 870
 WINDOW_HEIGHT = 540
@@ -43,8 +44,13 @@ class Window(ctk.CTk):
         
         self.headers: dict[str, ctk.CTkLabel] = dict[str, ctk.CTkLabel]()
         headers(self)
+
         self.body_input = input_body_field(self)
+        make_right_click_menu(self.body_input)
+
         self.title_input = input_title_field(self)
+        make_right_click_menu(self.title_input)
+        
         self.icon_frame = selector_frame_error_icon(self)
         self.button_frame = selector_frame_types(self)
 
@@ -180,3 +186,18 @@ def generate_button(w: Window, error_message_run: Callable) -> ctk.CTkButton:
     btn = ctk.CTkButton(w, text="Generate Error", command=lambda: Thread(target=error_message_run).start())
     btn.place(x=BUTTON_X, y=BUTTON_Y)
     return btn
+
+def make_right_click_menu(widget):
+    menu = Menu(widget, tearoff=0)
+    menu.add_command(label="Cut", command=lambda: widget.event_generate("<<Cut>>"))
+    menu.add_command(label="Copy", command=lambda: widget.event_generate("<<Copy>>"))
+    menu.add_command(label="Paste", command=lambda: widget.event_generate("<<Paste>>"))
+    menu.add_separator()
+    menu.add_command(label="Select All", command=lambda: widget.event_generate("<<SelectAll>>"))
+
+    def show_menu(event):
+        menu.tk_popup(event.x_root, event.y_root)
+
+    widget.bind("<Button-3>", show_menu)  # Right-click on Windows/Linux
+
+    return menu
