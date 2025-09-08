@@ -129,7 +129,7 @@ def selector_frame_error_icon(w: Window) -> ctk.CTkFrame:
     # radio buttons for error icon selection
     frame = ctk.CTkFrame(w, width=SEL_ICON_FRAME_WIDTH, height=SEL_ICON_FRAME_HEIGHT)
     frame.place(x=SEL_ICON_FRAME_X, y=SEL_ICON_FRAME_Y)
-    label = ctk.CTkLabel(frame, text="Icon:", font=ctk.CTkFont(size=16))
+    label = ctk.CTkLabel(frame, text="Icon Type:", font=ctk.CTkFont(size=16))
     label.pack(pady=10)
     w.add_headers("select_icon_label", label)
 
