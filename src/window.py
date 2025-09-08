@@ -129,16 +129,22 @@ def selector_frame_error_icon(w: Window) -> ctk.CTkFrame:
     # radio buttons for error icon selection
     frame = ctk.CTkFrame(w, width=SEL_ICON_FRAME_WIDTH, height=SEL_ICON_FRAME_HEIGHT)
     frame.place(x=SEL_ICON_FRAME_X, y=SEL_ICON_FRAME_Y)
-    label = ctk.CTkLabel(frame, text="Select Icon:", font=ctk.CTkFont(size=16))
+    label = ctk.CTkLabel(frame, text="Icon:", font=ctk.CTkFont(size=16))
     label.pack(pady=10)
     w.add_headers("select_icon_label", label)
 
     icon_var = ctk.StringVar(value="ERROR")
-    icons = ['ERROR', 'QUESTION', 'WARNING', 'INFORMATION']
-    for icon_name in icons:
+    icons = dict(
+        ERROR='Error (X)',
+        QUESTION='Question (?)',
+        WARNING='Warning (!)',
+        INFORMATION='Information (i)'
+    )
+
+    for icon_name, icon_label in icons.items():
         radio = ctk.CTkRadioButton(
             frame,
-            text=icon_name.capitalize(),
+            text=icon_label,
             variable=icon_var,
             value=icon_name
         )
@@ -152,7 +158,7 @@ def selector_frame_types(w: Window) -> ctk.CTkFrame:
     # radio buttons for error type selection
     frame = ctk.CTkFrame(w, width=SEL_ICON_FRAME_WIDTH, height=SEL_ICON_FRAME_HEIGHT)
     frame.place(x=SEL_ICON_FRAME_X + SEL_ICON_FRAME_WIDTH - 30, y=SEL_ICON_FRAME_Y)
-    label = ctk.CTkLabel(frame, text="Select Type:", font=ctk.CTkFont(size=16))
+    label = ctk.CTkLabel(frame, text="Button Type:", font=ctk.CTkFont(size=16))
     label.pack(pady=10)
     w.add_headers("select_type_label", label)
 
