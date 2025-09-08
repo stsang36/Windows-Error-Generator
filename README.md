@@ -14,7 +14,7 @@ Generate Windows errors of your choosing and input. Uses the Win32API to generat
 2. Launch ```app.py``` in src folder.
 3. A window should pop up, and you should be able to input text and generate messages of your choosing.
 
-Note: You can compile this into a single excutable by running the ```build.cmd``` file located in the root directory. You will need to have PyInstaller installed ```pip install pyinstaller```.
+Note: You can download the executable in the release section, or you can compile this into a single executable by running the ```build.cmd``` file located in the root directory. You will need to have PyInstaller installed ```pip install pyinstaller```.
 
 ## Required Libraries:
 - customtkinter
