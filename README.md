@@ -1,5 +1,7 @@
 # Windows Error Message Generator
-Generate Windows errors of your choosing and input. Uses the Win32API to generate these messages. 
+Generate Windows errors of your choosing and input. Uses the Win32API to generate these messages.
+
+[![Backend-Test](https://github.com/stsang36/Windows-Error-Generator/actions/workflows/python-app.yml/badge.svg)](https://github.com/stsang36/Windows-Error-Generator/actions/workflows/python-app.yml)
 
 ![Main App](images/Demo1.png?raw=true)
 
