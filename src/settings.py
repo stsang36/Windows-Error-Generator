@@ -16,6 +16,13 @@ class MBType(Enum):
     YESNO = win32con.MB_YESNO
     RETRYCANCEL = win32con.MB_RETRYCANCEL
 
+class DefaultButton(Enum):
+    '''Order of buttons: left to right, top to bottom'''
+    BUTTON1 = win32con.MB_DEFBUTTON1
+    BUTTON2 = win32con.MB_DEFBUTTON2
+    BUTTON3 = win32con.MB_DEFBUTTON3
+    BUTTON4 = win32con.MB_DEFBUTTON4
+
 
 class Settings:
     def __init__(self) -> None:
@@ -26,6 +33,16 @@ class Settings:
 
     def __str__(self) -> str:
         return f"Icon: {self.icon}, Type: {self.type}, Default Button: {self.default_button}"
+    
+    def set_icon(self, icon: int) -> None:
+        self.icon = icon
+    
+    def set_type(self, type_msg: int) -> None:
+        self.type = type_msg
+    
+    def set_default_button(self, default_button: int) -> None:
+        self.default_button = default_button
+    
 
 
 
