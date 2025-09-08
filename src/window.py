@@ -1,8 +1,9 @@
 import customtkinter as ctk
-import ctypes
+
+from ctypes import windll
 from typing import Callable
 from message_box import on_generate_button_click
-import threading
+from threading import Thread
 
 WINDOW_WIDTH = 870
 WINDOW_HEIGHT = 540
@@ -29,9 +30,9 @@ BUTTON_Y = SEL_ICON_FRAME_Y + SEL_ICON_FRAME_HEIGHT - 30
 
 # Window procedure
 try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(1)  # System DPI aware
+    windll.shcore.SetProcessDpiAwareness(1)  # System DPI aware
 except Exception:
-    ctypes.windll.user32.SetProcessDPIAware()  # Fallback for older Windows
+    windll.user32.SetProcessDPIAware()  # Fallback for older Windows
 
 class Window(ctk.CTk):
 
@@ -175,6 +176,6 @@ def selector_frame_types(w: Window) -> ctk.CTkFrame:
     return frame
 
 def generate_button(w: Window, error_message_run: Callable) -> ctk.CTkButton:
-    btn = ctk.CTkButton(w, text="Generate Error", command=lambda: threading.Thread(target=error_message_run).start())
+    btn = ctk.CTkButton(w, text="Generate Error", command=lambda: Thread(target=error_message_run).start())
     btn.place(x=BUTTON_X, y=BUTTON_Y)
     return btn

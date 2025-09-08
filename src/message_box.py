@@ -1,16 +1,16 @@
-import settings as s
-import win32api
+from settings import Settings, MBType, MBIcon
+from win32api import MessageBox
 
-settings = s.Settings()
+settings = Settings()
 
 
 def on_generate_button_click(title: str, body: str, type_msg: str, icon: str) -> None:
     # convert the type and icon from string to int
-    type_int = getattr(s.MBType[type_msg], "value", s.Settings().type)
-    icon_int = getattr(s.MBIcon[icon], "value", s.Settings().icon)
+    type_int = getattr(MBType[type_msg], "value", Settings().type)
+    icon_int = getattr(MBIcon[icon], "value", Settings().icon)
 
     
-    win32api.MessageBox(
+    MessageBox(
         0, body, title,
         icon_int | type_int | settings.default_button
     )
