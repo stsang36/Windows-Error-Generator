@@ -50,7 +50,7 @@ class Window(ctk.CTk):
 
         self.title_input = input_title_field(self)
         make_right_click_menu(self.title_input)
-        
+
         self.icon_frame = selector_frame_error_icon(self)
         self.button_frame = selector_frame_types(self)
 
@@ -187,17 +187,59 @@ def generate_button(w: Window, error_message_run: Callable) -> ctk.CTkButton:
     btn.place(x=BUTTON_X, y=BUTTON_Y)
     return btn
 
-def make_right_click_menu(widget):
+def make_right_click_menu(widget: ctk.CTkTextbox | ctk.CTkEntry) -> None:
     menu = Menu(widget, tearoff=0)
-    menu.add_command(label="Cut", command=lambda: widget.event_generate("<<Cut>>"))
-    menu.add_command(label="Copy", command=lambda: widget.event_generate("<<Copy>>"))
-    menu.add_command(label="Paste", command=lambda: widget.event_generate("<<Paste>>"))
+
+    def cut():
+        try:
+            if isinstance(widget, ctk.CTkTextbox):
+                text = widget.get("sel.first", "sel.last")
+                widget.delete("sel.first", "sel.last")
+            else:  # CTkEntry
+                text = widget.get()
+                widget.delete(0, "end")
+            widget.clipboard_clear()
+            widget.clipboard_append(text)
+        except Exception:
+            pass
+
+    def copy():
+        try:
+            if isinstance(widget, ctk.CTkTextbox):
+                text = widget.get("sel.first", "sel.last")
+            else:  # CTkEntry
+                text = widget.get()
+            widget.clipboard_clear()
+            widget.clipboard_append(text)
+        except Exception:
+            pass
+
+    def paste():
+        try:
+            text = widget.clipboard_get()
+            if isinstance(widget, ctk.CTkTextbox):
+                widget.insert("insert", text)
+            else:  # CTkEntry
+                widget.insert("insert", text)
+        except Exception:
+            pass
+
+    def select_all():
+        try:
+            if isinstance(widget, ctk.CTkTextbox):
+                widget.tag_add("sel", "1.0", "end-1c")
+            else:  # CTkEntry
+                widget.select_range(0, "end")
+        except Exception:
+            pass
+
+    menu.add_command(label="Cut", command=cut)
+    menu.add_command(label="Copy", command=copy)
+    menu.add_command(label="Paste", command=paste)
     menu.add_separator()
-    menu.add_command(label="Select All", command=lambda: widget.event_generate("<<SelectAll>>"))
+    menu.add_command(label="Select All", command=select_all)
 
     def show_menu(event):
         menu.tk_popup(event.x_root, event.y_root)
 
-    widget.bind("<Button-3>", show_menu)  # Right-click on Windows/Linux
-
-    return menu
+    widget.bind("<Button-3>", show_menu)
