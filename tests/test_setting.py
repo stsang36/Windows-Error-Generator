@@ -1,9 +1,9 @@
 import pytest
 import sys
-import os
+from os import path, environ
 import win32con
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, path.abspath(path.join(path.dirname(__file__), '../src')))
 
 import settings
 import message_box
@@ -36,7 +36,7 @@ def test_set_default_button():
     s.set_default_button(win32con.MB_DEFBUTTON2)
     assert s.default_button == win32con.MB_DEFBUTTON2
     
-@pytest.mark.skipif(os.environ.get("CI") == "true", reason="Skip GUI tests in CI")
+@pytest.mark.skipif(environ.get("CI") == "true", reason="Skip GUI tests in CI")
 def test_message_box():
     # Test that message box can be created without error
     message_box.on_generate_button_click("Test Title", "Test Body", "OK", "ERROR")

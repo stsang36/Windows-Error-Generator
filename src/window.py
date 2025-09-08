@@ -1,5 +1,4 @@
 import customtkinter as ctk
-
 from ctypes import windll
 from typing import Callable
 from message_box import on_generate_button_click
@@ -79,6 +78,8 @@ class Window(ctk.CTk):
     def add_headers(self, name:str, label: ctk.CTkLabel) -> None:
         # get current header dict and append new headers
         self.headers[name] = label
+    
+    
         
 
 
